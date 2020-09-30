@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ticarisiteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_admin">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kullanici" Type="varchar" MaxLength="50" />
+    <Property Name="sifre" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbl_kategori">
+    <Key>
+      <PropertyRef Name="kategoriid" />
+    </Key>
+    <Property Name="kategoriid" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kategoriad" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="tbl_musteri">
+    <Key>
+      <PropertyRef Name="musteriid" />
+    </Key>
+    <Property Name="musteriid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="musteriad" Type="varchar" MaxLength="20" />
+    <Property Name="musterisoyad" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="tbl_personel">
+    <Key>
+      <PropertyRef Name="personelid" />
+    </Key>
+    <Property Name="personelid" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="perdoneladsoyad" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbl_satis">
+    <Key>
+      <PropertyRef Name="satisid" />
+    </Key>
+    <Property Name="satisid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="urun" Type="int" />
+    <Property Name="personel" Type="tinyint" />
+    <Property Name="musteri" Type="int" />
+    <Property Name="fiyat" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="tbl_urunler">
+    <Key>
+      <PropertyRef Name="urunid" />
+    </Key>
+    <Property Name="urunid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="urunad" Type="varchar" MaxLength="20" />
+    <Property Name="urunmarka" Type="varchar" MaxLength="20" />
+    <Property Name="urunkategori" Type="tinyint" />
+    <Property Name="urunfiyat" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="urunstok" Type="smallint" />
+    <Property Name="durum" Type="bit" />
+  </EntityType>
+  <Association Name="FK_tbl_satis_tbl_musteri">
+    <End Role="tbl_musteri" Type="Self.tbl_musteri" Multiplicity="0..1" />
+    <End Role="tbl_satis" Type="Self.tbl_satis" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_musteri">
+        <PropertyRef Name="musteriid" />
+      </Principal>
+      <Dependent Role="tbl_satis">
+        <PropertyRef Name="musteri" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_satis_tbl_personel">
+    <End Role="tbl_personel" Type="Self.tbl_personel" Multiplicity="0..1" />
+    <End Role="tbl_satis" Type="Self.tbl_satis" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_personel">
+        <PropertyRef Name="personelid" />
+      </Principal>
+      <Dependent Role="tbl_satis">
+        <PropertyRef Name="personel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_satis_tbl_urunler">
+    <End Role="tbl_urunler" Type="Self.tbl_urunler" Multiplicity="0..1" />
+    <End Role="tbl_satis" Type="Self.tbl_satis" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_urunler">
+        <PropertyRef Name="urunid" />
+      </Principal>
+      <Dependent Role="tbl_satis">
+        <PropertyRef Name="urun" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_urunler_tbl_kategori">
+    <End Role="tbl_kategori" Type="Self.tbl_kategori" Multiplicity="0..1" />
+    <End Role="tbl_urunler" Type="Self.tbl_urunler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_kategori">
+        <PropertyRef Name="kategoriid" />
+      </Principal>
+      <Dependent Role="tbl_urunler">
+        <PropertyRef Name="urunkategori" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ticarisiteModelStoreContainer">
+    <EntitySet Name="tbl_admin" EntityType="Self.tbl_admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_kategori" EntityType="Self.tbl_kategori" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_musteri" EntityType="Self.tbl_musteri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_personel" EntityType="Self.tbl_personel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_satis" EntityType="Self.tbl_satis" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_urunler" EntityType="Self.tbl_urunler" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tbl_satis_tbl_musteri" Association="Self.FK_tbl_satis_tbl_musteri">
+      <End Role="tbl_musteri" EntitySet="tbl_musteri" />
+      <End Role="tbl_satis" EntitySet="tbl_satis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_satis_tbl_personel" Association="Self.FK_tbl_satis_tbl_personel">
+      <End Role="tbl_personel" EntitySet="tbl_personel" />
+      <End Role="tbl_satis" EntitySet="tbl_satis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_satis_tbl_urunler" Association="Self.FK_tbl_satis_tbl_urunler">
+      <End Role="tbl_urunler" EntitySet="tbl_urunler" />
+      <End Role="tbl_satis" EntitySet="tbl_satis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_urunler_tbl_kategori" Association="Self.FK_tbl_urunler_tbl_kategori">
+      <End Role="tbl_kategori" EntitySet="tbl_kategori" />
+      <End Role="tbl_urunler" EntitySet="tbl_urunler" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

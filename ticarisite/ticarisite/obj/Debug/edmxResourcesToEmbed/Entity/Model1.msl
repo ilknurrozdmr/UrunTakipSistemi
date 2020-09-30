@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ticarisiteModelStoreContainer" CdmEntityContainer="ticarisiteEntities2">
+    <EntitySetMapping Name="tbl_kategori">
+      <EntityTypeMapping TypeName="ticarisiteModel.tbl_kategori">
+        <MappingFragment StoreEntitySet="tbl_kategori">
+          <ScalarProperty Name="kategoriid" ColumnName="kategoriid" />
+          <ScalarProperty Name="kategoriad" ColumnName="kategoriad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_musteri">
+      <EntityTypeMapping TypeName="ticarisiteModel.tbl_musteri">
+        <MappingFragment StoreEntitySet="tbl_musteri">
+          <ScalarProperty Name="musteriid" ColumnName="musteriid" />
+          <ScalarProperty Name="musteriad" ColumnName="musteriad" />
+          <ScalarProperty Name="musterisoyad" ColumnName="musterisoyad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_personel">
+      <EntityTypeMapping TypeName="ticarisiteModel.tbl_personel">
+        <MappingFragment StoreEntitySet="tbl_personel">
+          <ScalarProperty Name="personelid" ColumnName="personelid" />
+          <ScalarProperty Name="perdoneladsoyad" ColumnName="perdoneladsoyad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_satis">
+      <EntityTypeMapping TypeName="ticarisiteModel.tbl_satis">
+        <MappingFragment StoreEntitySet="tbl_satis">
+          <ScalarProperty Name="fiyat" ColumnName="fiyat" />
+          <ScalarProperty Name="satisid" ColumnName="satisid" />
+          <ScalarProperty Name="urun" ColumnName="urun" />
+          <ScalarProperty Name="personel" ColumnName="personel" />
+          <ScalarProperty Name="musteri" ColumnName="musteri" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_urunler">
+      <EntityTypeMapping TypeName="ticarisiteModel.tbl_urunler">
+        <MappingFragment StoreEntitySet="tbl_urunler">
+          <ScalarProperty Name="durum" ColumnName="durum" />
+          <ScalarProperty Name="urunid" ColumnName="urunid" />
+          <ScalarProperty Name="urunad" ColumnName="urunad" />
+          <ScalarProperty Name="urunmarka" ColumnName="urunmarka" />
+          <ScalarProperty Name="urunkategori" ColumnName="urunkategori" />
+          <ScalarProperty Name="urunfiyat" ColumnName="urunfiyat" />
+          <ScalarProperty Name="urunstok" ColumnName="urunstok" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_admin">
+      <EntityTypeMapping TypeName="ticarisiteModel.tbl_admin">
+        <MappingFragment StoreEntitySet="tbl_admin">
+          <ScalarProperty Name="sifre" ColumnName="sifre" />
+          <ScalarProperty Name="kullanici" ColumnName="kullanici" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

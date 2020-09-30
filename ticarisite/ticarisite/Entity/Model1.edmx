@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ticarisiteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_admin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kullanici" Type="varchar" MaxLength="50" />
+          <Property Name="sifre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_kategori">
+          <Key>
+            <PropertyRef Name="kategoriid" />
+          </Key>
+          <Property Name="kategoriid" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kategoriad" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tbl_musteri">
+          <Key>
+            <PropertyRef Name="musteriid" />
+          </Key>
+          <Property Name="musteriid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="musteriad" Type="varchar" MaxLength="20" />
+          <Property Name="musterisoyad" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tbl_personel">
+          <Key>
+            <PropertyRef Name="personelid" />
+          </Key>
+          <Property Name="personelid" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="perdoneladsoyad" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_satis">
+          <Key>
+            <PropertyRef Name="satisid" />
+          </Key>
+          <Property Name="satisid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="urun" Type="int" />
+          <Property Name="personel" Type="tinyint" />
+          <Property Name="musteri" Type="int" />
+          <Property Name="fiyat" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="tbl_urunler">
+          <Key>
+            <PropertyRef Name="urunid" />
+          </Key>
+          <Property Name="urunid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="urunad" Type="varchar" MaxLength="20" />
+          <Property Name="urunmarka" Type="varchar" MaxLength="20" />
+          <Property Name="urunkategori" Type="tinyint" />
+          <Property Name="urunfiyat" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="urunstok" Type="smallint" />
+          <Property Name="durum" Type="bit" />
+        </EntityType>
+        <Association Name="FK_tbl_satis_tbl_musteri">
+          <End Role="tbl_musteri" Type="Self.tbl_musteri" Multiplicity="0..1" />
+          <End Role="tbl_satis" Type="Self.tbl_satis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_musteri">
+              <PropertyRef Name="musteriid" />
+            </Principal>
+            <Dependent Role="tbl_satis">
+              <PropertyRef Name="musteri" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_satis_tbl_personel">
+          <End Role="tbl_personel" Type="Self.tbl_personel" Multiplicity="0..1" />
+          <End Role="tbl_satis" Type="Self.tbl_satis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_personel">
+              <PropertyRef Name="personelid" />
+            </Principal>
+            <Dependent Role="tbl_satis">
+              <PropertyRef Name="personel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_satis_tbl_urunler">
+          <End Role="tbl_urunler" Type="Self.tbl_urunler" Multiplicity="0..1" />
+          <End Role="tbl_satis" Type="Self.tbl_satis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_urunler">
+              <PropertyRef Name="urunid" />
+            </Principal>
+            <Dependent Role="tbl_satis">
+              <PropertyRef Name="urun" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_urunler_tbl_kategori">
+          <End Role="tbl_kategori" Type="Self.tbl_kategori" Multiplicity="0..1" />
+          <End Role="tbl_urunler" Type="Self.tbl_urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_kategori">
+              <PropertyRef Name="kategoriid" />
+            </Principal>
+            <Dependent Role="tbl_urunler">
+              <PropertyRef Name="urunkategori" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ticarisiteModelStoreContainer">
+          <EntitySet Name="tbl_admin" EntityType="Self.tbl_admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_kategori" EntityType="Self.tbl_kategori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_musteri" EntityType="Self.tbl_musteri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_personel" EntityType="Self.tbl_personel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_satis" EntityType="Self.tbl_satis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_urunler" EntityType="Self.tbl_urunler" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbl_satis_tbl_musteri" Association="Self.FK_tbl_satis_tbl_musteri">
+            <End Role="tbl_musteri" EntitySet="tbl_musteri" />
+            <End Role="tbl_satis" EntitySet="tbl_satis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_satis_tbl_personel" Association="Self.FK_tbl_satis_tbl_personel">
+            <End Role="tbl_personel" EntitySet="tbl_personel" />
+            <End Role="tbl_satis" EntitySet="tbl_satis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_satis_tbl_urunler" Association="Self.FK_tbl_satis_tbl_urunler">
+            <End Role="tbl_urunler" EntitySet="tbl_urunler" />
+            <End Role="tbl_satis" EntitySet="tbl_satis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_urunler_tbl_kategori" Association="Self.FK_tbl_urunler_tbl_kategori">
+            <End Role="tbl_kategori" EntitySet="tbl_kategori" />
+            <End Role="tbl_urunler" EntitySet="tbl_urunler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ticarisiteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_kategori">
+          <Key>
+            <PropertyRef Name="kategoriid" />
+          </Key>
+          <Property Name="kategoriid" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kategoriad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_urunler" Relationship="Self.FK_tbl_urunler_tbl_kategori" FromRole="tbl_kategori" ToRole="tbl_urunler" />
+        </EntityType>
+        <EntityType Name="tbl_musteri">
+          <Key>
+            <PropertyRef Name="musteriid" />
+          </Key>
+          <Property Name="musteriid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="musteriad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="musterisoyad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_satis" Relationship="Self.FK_tbl_satis_tbl_musteri" FromRole="tbl_musteri" ToRole="tbl_satis" />
+        </EntityType>
+        <EntityType Name="tbl_personel">
+          <Key>
+            <PropertyRef Name="personelid" />
+          </Key>
+          <Property Name="personelid" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="perdoneladsoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_satis" Relationship="Self.FK_tbl_satis_tbl_personel" FromRole="tbl_personel" ToRole="tbl_satis" />
+        </EntityType>
+        <EntityType Name="tbl_satis">
+          <Key>
+            <PropertyRef Name="satisid" />
+          </Key>
+          <Property Name="satisid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="urun" Type="Int32" />
+          <Property Name="personel" Type="Byte" />
+          <Property Name="musteri" Type="Int32" />
+          <NavigationProperty Name="tbl_musteri" Relationship="Self.FK_tbl_satis_tbl_musteri" FromRole="tbl_satis" ToRole="tbl_musteri" />
+          <NavigationProperty Name="tbl_personel" Relationship="Self.FK_tbl_satis_tbl_personel" FromRole="tbl_satis" ToRole="tbl_personel" />
+          <NavigationProperty Name="tbl_urunler" Relationship="Self.FK_tbl_satis_tbl_urunler" FromRole="tbl_satis" ToRole="tbl_urunler" />
+          <Property Name="fiyat" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="tbl_urunler">
+          <Key>
+            <PropertyRef Name="urunid" />
+          </Key>
+          <Property Name="urunid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="urunad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="urunmarka" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="urunkategori" Type="Byte" />
+          <Property Name="urunfiyat" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="urunstok" Type="Int16" />
+          <NavigationProperty Name="tbl_kategori" Relationship="Self.FK_tbl_urunler_tbl_kategori" FromRole="tbl_urunler" ToRole="tbl_kategori" />
+          <NavigationProperty Name="tbl_satis" Relationship="Self.FK_tbl_satis_tbl_urunler" FromRole="tbl_urunler" ToRole="tbl_satis" />
+          <Property Name="durum" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_tbl_urunler_tbl_kategori">
+          <End Role="tbl_kategori" Type="Self.tbl_kategori" Multiplicity="0..1" />
+          <End Role="tbl_urunler" Type="Self.tbl_urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_kategori">
+              <PropertyRef Name="kategoriid" />
+            </Principal>
+            <Dependent Role="tbl_urunler">
+              <PropertyRef Name="urunkategori" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_satis_tbl_musteri">
+          <End Role="tbl_musteri" Type="Self.tbl_musteri" Multiplicity="0..1" />
+          <End Role="tbl_satis" Type="Self.tbl_satis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_musteri">
+              <PropertyRef Name="musteriid" />
+            </Principal>
+            <Dependent Role="tbl_satis">
+              <PropertyRef Name="musteri" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_satis_tbl_personel">
+          <End Role="tbl_personel" Type="Self.tbl_personel" Multiplicity="0..1" />
+          <End Role="tbl_satis" Type="Self.tbl_satis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_personel">
+              <PropertyRef Name="personelid" />
+            </Principal>
+            <Dependent Role="tbl_satis">
+              <PropertyRef Name="personel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_satis_tbl_urunler">
+          <End Role="tbl_urunler" Type="Self.tbl_urunler" Multiplicity="0..1" />
+          <End Role="tbl_satis" Type="Self.tbl_satis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_urunler">
+              <PropertyRef Name="urunid" />
+            </Principal>
+            <Dependent Role="tbl_satis">
+              <PropertyRef Name="urun" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ticarisiteEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_kategori" EntityType="Self.tbl_kategori" />
+          <EntitySet Name="tbl_musteri" EntityType="Self.tbl_musteri" />
+          <EntitySet Name="tbl_personel" EntityType="Self.tbl_personel" />
+          <EntitySet Name="tbl_satis" EntityType="Self.tbl_satis" />
+          <EntitySet Name="tbl_urunler" EntityType="Self.tbl_urunler" />
+          <AssociationSet Name="FK_tbl_urunler_tbl_kategori" Association="Self.FK_tbl_urunler_tbl_kategori">
+            <End Role="tbl_kategori" EntitySet="tbl_kategori" />
+            <End Role="tbl_urunler" EntitySet="tbl_urunler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_satis_tbl_musteri" Association="Self.FK_tbl_satis_tbl_musteri">
+            <End Role="tbl_musteri" EntitySet="tbl_musteri" />
+            <End Role="tbl_satis" EntitySet="tbl_satis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_satis_tbl_personel" Association="Self.FK_tbl_satis_tbl_personel">
+            <End Role="tbl_personel" EntitySet="tbl_personel" />
+            <End Role="tbl_satis" EntitySet="tbl_satis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_satis_tbl_urunler" Association="Self.FK_tbl_satis_tbl_urunler">
+            <End Role="tbl_urunler" EntitySet="tbl_urunler" />
+            <End Role="tbl_satis" EntitySet="tbl_satis" />
+          </AssociationSet>
+          <EntitySet Name="tbl_admin" EntityType="ticarisiteModel.tbl_admin" />
+        </EntityContainer>
+        <EntityType Name="tbl_admin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kullanici" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ticarisiteModelStoreContainer" CdmEntityContainer="ticarisiteEntities2">
+          <EntitySetMapping Name="tbl_kategori">
+            <EntityTypeMapping TypeName="ticarisiteModel.tbl_kategori">
+              <MappingFragment StoreEntitySet="tbl_kategori">
+                <ScalarProperty Name="kategoriid" ColumnName="kategoriid" />
+                <ScalarProperty Name="kategoriad" ColumnName="kategoriad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_musteri">
+            <EntityTypeMapping TypeName="ticarisiteModel.tbl_musteri">
+              <MappingFragment StoreEntitySet="tbl_musteri">
+                <ScalarProperty Name="musteriid" ColumnName="musteriid" />
+                <ScalarProperty Name="musteriad" ColumnName="musteriad" />
+                <ScalarProperty Name="musterisoyad" ColumnName="musterisoyad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_personel">
+            <EntityTypeMapping TypeName="ticarisiteModel.tbl_personel">
+              <MappingFragment StoreEntitySet="tbl_personel">
+                <ScalarProperty Name="personelid" ColumnName="personelid" />
+                <ScalarProperty Name="perdoneladsoyad" ColumnName="perdoneladsoyad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_satis">
+            <EntityTypeMapping TypeName="ticarisiteModel.tbl_satis">
+              <MappingFragment StoreEntitySet="tbl_satis">
+                <ScalarProperty Name="fiyat" ColumnName="fiyat" />
+                <ScalarProperty Name="satisid" ColumnName="satisid" />
+                <ScalarProperty Name="urun" ColumnName="urun" />
+                <ScalarProperty Name="personel" ColumnName="personel" />
+                <ScalarProperty Name="musteri" ColumnName="musteri" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_urunler">
+            <EntityTypeMapping TypeName="ticarisiteModel.tbl_urunler">
+              <MappingFragment StoreEntitySet="tbl_urunler">
+                <ScalarProperty Name="durum" ColumnName="durum" />
+                <ScalarProperty Name="urunid" ColumnName="urunid" />
+                <ScalarProperty Name="urunad" ColumnName="urunad" />
+                <ScalarProperty Name="urunmarka" ColumnName="urunmarka" />
+                <ScalarProperty Name="urunkategori" ColumnName="urunkategori" />
+                <ScalarProperty Name="urunfiyat" ColumnName="urunfiyat" />
+                <ScalarProperty Name="urunstok" ColumnName="urunstok" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_admin">
+            <EntityTypeMapping TypeName="ticarisiteModel.tbl_admin">
+              <MappingFragment StoreEntitySet="tbl_admin">
+                <ScalarProperty Name="sifre" ColumnName="sifre" />
+                <ScalarProperty Name="kullanici" ColumnName="kullanici" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
